@@ -21,7 +21,7 @@ namespace BookStore.Core
         public string Description { get; } = string.Empty;
         public decimal Price { get; }
 
-        public static (Book book, string Error) Create(Guid id, string title, string description, decimal price)
+        public static (Book Book, string Error) Create(Guid id, string title, string description, decimal price)
         {
             var error = string.Empty;
 

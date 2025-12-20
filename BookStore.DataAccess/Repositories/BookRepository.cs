@@ -40,5 +40,27 @@ namespace BookStore.DataAccess.Repositories
 
             return bookEntity.Id;
         }
+
+        public async Task<Guid> Update(Guid id, string title, string description, decimal price)
+        {
+            await _context.Books
+                .Where(b => b.Id == id)
+                .ExecuteUpdateAsync(s => s
+                .SetProperty(b => b.Title, b => title)
+                .SetProperty(b => b.Description, b => description)
+                .SetProperty(b => b.Price, b => price)
+                );
+
+            return id;
+        }
+
+        public async Task<Guid> Delete(Guid id)
+        {
+            await _context.Books
+                .Where(b => b.Id == id)
+                .ExecuteDeleteAsync();
+
+            return id;
+        }
     }
 }

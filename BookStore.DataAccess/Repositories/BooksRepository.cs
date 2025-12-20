@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DataAccess.Repositories
 {
-    public class BookRepository
+    public class BooksRepository : IBooksRepository
     {
         private readonly BookStoreDbContext _context;
 
-        public BookRepository(BookStoreDbContext context)
+        public BooksRepository(BookStoreDbContext context)
         {
             _context = context;
         }

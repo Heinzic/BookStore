@@ -1,4 +1,5 @@
 ﻿using BookStore.Core;
+using BookStore.DataAccess.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.DataAccess.Repositories
@@ -11,8 +12,7 @@ namespace BookStore.DataAccess.Repositories
         {
             _context = context;
         }
-
-        public async Task<List<Book>> GetBooks()
+        public async Task<List<Book>> Get()
         {
             var bookEntities = await _context.Books
                 .AsNoTracking()
@@ -23,6 +23,22 @@ namespace BookStore.DataAccess.Repositories
                 .ToList();
 
             return books;
+        }
+
+        public async Task<Guid> Create(Book book)
+        {
+            var bookEntity = new BookEntity
+            {
+                Id = book.Id,
+                Description = book.Description,
+                Price = book.Price,
+                Title = book.Title,
+            };
+
+            await _context.Books.AddAsync(bookEntity);
+            await _context.SaveChangesAsync();
+
+            return bookEntity.Id;
         }
     }
 }
